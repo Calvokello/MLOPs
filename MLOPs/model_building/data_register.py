@@ -1,7 +1,10 @@
-#Use the project folder name, then the folder where model building code will be stored.
+
+from pathlib import Path
 import pandas as pd
 
-RAW_PATH = "/content/MLOPs/data/tourism.csv"  # complete the code: path to the raw tourism.csv file inside the data folder
+# Resolve the project root relative to this script
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+RAW_PATH = PROJECT_ROOT / "data" / "tourism.csv"
 
 # Load the raw dataset
 df = pd.read_csv(RAW_PATH)
@@ -14,7 +17,9 @@ expected_columns = [
     "MaritalStatus", "NumberOfTrips", "Passport", "PitchSatisfactionScore",
     "OwnCar", "NumberOfChildrenVisiting", "Designation", "MonthlyIncome",
 ]
+
 missing = [c for c in expected_columns if c not in df.columns]
+
 if missing:
     raise ValueError(f"Dataset is missing expected columns: {missing}")
 
